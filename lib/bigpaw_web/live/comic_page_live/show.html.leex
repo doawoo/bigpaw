@@ -1,0 +1,57 @@
+<h1>Show Comic page</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, BigpawWeb.ComicPageLive.FormComponent,
+    id: @comic_page.id,
+    title: @page_title,
+    action: @live_action,
+    comic_page: @comic_page,
+    return_to: Routes.comic_page_show_path(@socket, :show, @comic_page) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @comic_page.title %>
+  </li>
+
+  <li>
+    <strong>Slug:</strong>
+    <%= @comic_page.slug %>
+  </li>
+
+  <li>
+    <strong>Images:</strong>
+    <%= @comic_page.images %>
+  </li>
+
+  <li>
+    <strong>Post on:</strong>
+    <%= @comic_page.post_on %>
+  </li>
+
+  <li>
+    <strong>Posted:</strong>
+    <%= @comic_page.posted %>
+  </li>
+
+  <li>
+    <strong>Content body:</strong>
+    <%= @comic_page.content_body %>
+  </li>
+
+  <li>
+    <strong>Extra css:</strong>
+    <%= @comic_page.extra_css %>
+  </li>
+
+  <li>
+    <strong>Extra html:</strong>
+    <%= @comic_page.extra_html %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.comic_page_show_path(@socket, :edit, @comic_page), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.comic_page_index_path(@socket, :index) %></span>

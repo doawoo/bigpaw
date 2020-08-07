@@ -1,0 +1,49 @@
+<h1>Listing Comic page</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, BigpawWeb.ComicPageLive.FormComponent,
+    id: @comic_page.id || :new,
+    title: @page_title,
+    action: @live_action,
+    comic_page: @comic_page,
+    return_to: Routes.comic_page_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Slug</th>
+      <th>Images</th>
+      <th>Post on</th>
+      <th>Posted</th>
+      <th>Content body</th>
+      <th>Extra css</th>
+      <th>Extra html</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="comic_page">
+    <%= for comic_page <- @comic_page_collection do %>
+      <tr id="comic_page-<%= comic_page.id %>">
+        <td><%= comic_page.title %></td>
+        <td><%= comic_page.slug %></td>
+        <td><%= comic_page.images %></td>
+        <td><%= comic_page.post_on %></td>
+        <td><%= comic_page.posted %></td>
+        <td><%= comic_page.content_body %></td>
+        <td><%= comic_page.extra_css %></td>
+        <td><%= comic_page.extra_html %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.comic_page_show_path(@socket, :show, comic_page) %></span>
+          <span><%= live_patch "Edit", to: Routes.comic_page_index_path(@socket, :edit, comic_page) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: comic_page.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Comic page", to: Routes.comic_page_index_path(@socket, :new) %></span>

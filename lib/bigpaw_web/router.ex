@@ -23,9 +23,17 @@ defmodule BigpawWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+
+    live "/comic_page", ComicPageLive.Index, :index
+    live "/comic_page/new", ComicPageLive.Index, :new
+    live "/comic_page/:id/edit", ComicPageLive.Index, :edit
+
+    live "/comic_page/:id", ComicPageLive.Show, :show
+    live "/comic_page/:id/show/edit", ComicPageLive.Show, :edit
   end
 
   scope "/" do
+    pipe_through :browser
     pow_routes()
   end
 
