@@ -11,7 +11,7 @@
   <%= error_tag f, :title %>
 
   <%= label f, :slug %>
-  <%= text_input f, :slug %>
+  <%= text_input f, :slug, [readonly: true]%>
   <%= error_tag f, :slug %>
 
   <%= label f, :images %>

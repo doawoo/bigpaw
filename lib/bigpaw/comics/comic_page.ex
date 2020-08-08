@@ -20,7 +20,20 @@ defmodule Bigpaw.Comics.ComicPage do
   @doc false
   def changeset(comic_page, attrs) do
     comic_page
-    |> cast(attrs, [:title, :slug, :images, :post_on, :posted, :content_body, :extra_css, :extra_html])
+    |> cast(generation(attrs), [:title, :slug, :images, :post_on, :posted, :content_body, :extra_css, :extra_html])
     |> validate_required([:title, :slug, :images, :post_on, :posted, :content_body, :extra_css, :extra_html])
   end
+
+  defp generation(attrs) do
+    generate_slug(attrs)
+  end
+
+  defp generate_slug(%{"title" => title} = attrs) do
+    slug =
+      title
+      |> String.replace(" ", "-")
+      |> String.downcase()
+    %{ attrs | "slug" => slug }
+  end
+  defp generate_slug(attrs), do: attrs
 end
